@@ -7,7 +7,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DOCKER_DIR="$DIR/dkr"
 DATADIR="$DIR/data"
-DATADIRD="/root/.decent"
+DATADIRD="/root/.decent/data"
 DOCKER_NAME="decent"
 
 BOLD="$(tput bold)"
@@ -109,10 +109,12 @@ seed_running() {
 
 start() {
     echo $GREEN"Starting container..."$RESET
+    echo "docker run $DPORTS -v /dev/shm:/shm -v "$DATADIR":"$DATADIRD" -d --name $DOCKER_NAME -t decent"
     seed_exists
     if [[ $? == 0 ]]; then
         docker start $DOCKER_NAME
     else
+
         docker run $DPORTS -v /dev/shm:/shm -v "$DATADIR":"$DATADIRD" -d \
             --name $DOCKER_NAME -t decent
     fi

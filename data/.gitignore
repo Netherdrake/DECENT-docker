@@ -1,4 +1,6 @@
 logs/
+decentd/
+packages/
 data/
 temp/
 wallet.json
