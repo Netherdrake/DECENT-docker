@@ -3,10 +3,10 @@
 % ./run.sh
 Usage: ./run.sh COMMAND [DATA]
 
-Commands: 
+Commands:
     start - starts DECENT container
     replay - starts DECENT container (in replay mode)
-    shm_size - resizes /dev/shm to size given, e.g. ./run.sh shm_size 10G 
+    shm_size - resizes /dev/shm to size given, e.g. ./run.sh shm_size 10G
     stop - stops DECENT container
     status - show status of DECENT container
     restart - restarts DECENT container
@@ -16,6 +16,30 @@ Commands:
     logs - show all logs inc. docker logs, and DECENT logs
     wallet - open cli_wallet in the container
     enter - enter a bash session in the container
+```
+
+
+### Witness Setup
+First, lets build the container.
+```
+./run.sh build
+```
+
+Add your miner-id and private-key to `config.ini`.
+```
+vim data/decentd/config.ini
+```
+
+Start the container.
+```
+./run.sh start
+```
+
+### Thank you
+Pull Requests with fixes and improvements are welcome.
+If you found this tool useful, please consider voting for miner `furion`.
+```
+vote_for_miner <your-account-name> furion true true
 ```
 
 ### Credits
