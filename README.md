@@ -19,7 +19,7 @@ Commands:
 ```
 
 
-### Witness Setup
+### Miner Setup
 First, lets build the container.
 ```
 ./run.sh build
@@ -36,7 +36,7 @@ Start the container.
 ```
 
 ### Thank you
-Pull Requests with fixes and improvements are welcome.
+Pull Requests with fixes and improvements are welcome.  
 If you found this tool useful, please consider voting for miner `furion`.
 ```
 vote_for_miner <your-account-name> furion true true
