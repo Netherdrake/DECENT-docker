@@ -36,21 +36,18 @@ run cd / && \
 
 
 RUN cd / && \
-    mkdir decent && \
-    cd decent && \
+    mkdir decent-bin && \
+    cd decent-bin && \
     cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Debug /decent-src && \
     cmake --build . --target all -- -j -l 3.0 && \
     cmake --build . --target install
 
 # P2P (seed) port
-EXPOSE 7777
-# RPC ports
-EXPOSE 5000
+EXPOSE 2001
 # API Port
 EXPOSE 8090
 
-VOLUME /decent
-WORKDIR /decent
-RUN cp artifacts/prefix/bin/decentd .
-RUN cp artifacts/prefix/bin/cli_wallet .
-CMD ["sh", "-c", "decentd"]
+RUN cp /decent-bin/artifacts/prefix/bin/* /decent-bin
+VOLUME /root/.decent
+WORKDIR /decent-bin
+ENTRYPOINT ["sh", "-c", "/decent-bin/decentd"]

@@ -17,3 +17,6 @@ Commands:
     wallet - open cli_wallet in the container
     enter - enter a bash session in the container
 ```
+
+### Credits
+This project is based on someguy123's [peerplays-docker](https://github.com/Someguy123/peerplays-docker).

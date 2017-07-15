@@ -7,6 +7,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DOCKER_DIR="$DIR/dkr"
 DATADIR="$DIR/data"
+DATADIRD="/root/.decent"
 DOCKER_NAME="decent"
 
 BOLD="$(tput bold)"
@@ -20,15 +21,15 @@ WHITE="$(tput setaf 7)"
 RESET="$(tput sgr0)"
 
 # default. override in .env
-PORTS="7777"
+PORTS="2001"
 
 if [[ -f .env ]]; then
     source .env
 fi
 
-if [[ ! -f data/witness_node_data_dir/config.ini ]]; then
+if [[ ! -f data/decentd/config.ini ]]; then
     echo "config.ini not found. copying example (seed)";
-    cp data/witness_node_data_dir/config.ini.example data/witness_node_data_dir/config.ini
+    cp data/decentd/config.ini.example data/decentd/config.ini
 fi
 
 IFS=","
@@ -56,6 +57,7 @@ help() {
     echo "    install - pulls latest docker image from server (no compiling)"
     echo "    rebuild - builds DECENT container (from docker file), and then restarts it"
     echo "    build - only builds DECENT container (from docker file)"
+    echo "    deploy - push the latest docker image to dockerhub"
     echo "    logs - show all logs inc. docker logs, and DECENT logs"
     echo "    wallet - open cli_wallet in the container"
     echo "    enter - enter a bash session in the container"
@@ -79,6 +81,12 @@ install() {
     echo "Tagging as DECENT"
     docker tag furion/decent decent
     echo "Installation completed. You may now configure or run the server"
+}
+
+deploy() {
+    docker tag decent furion/decent
+    docker push furion/decent
+    echo "Deployment completed."
 }
 
 seed_exists() {
@@ -105,7 +113,7 @@ start() {
     if [[ $? == 0 ]]; then
         docker start $DOCKER_NAME
     else
-        docker run $DPORTS -v /dev/shm:/shm -v "$DATADIR":/decent -d \
+        docker run $DPORTS -v /dev/shm:/shm -v "$DATADIR":"$DATADIRD" -d \
             --name $DOCKER_NAME -t decent
     fi
 }
@@ -114,7 +122,7 @@ replay() {
     echo "Removing old container"
     docker rm $DOCKER_NAME
     echo "Running DECENT with replay..."
-    docker run $DPORTS -v /dev/shm:/shm -v "$DATADIR":/decent -d \
+    docker run $DPORTS -v /dev/shm:/shm -v "$DATADIR":"$DATADIRD" -d \
         --name $DOCKER_NAME -t decent decentd --replay
     echo "Started."
 }
@@ -135,7 +143,7 @@ enter() {
 }
 
 wallet() {
-    docker exec -it $DOCKER_NAME cli_wallet
+    docker exec -it $DOCKER_NAME /decent-bin/cli_wallet
 }
 
 logs() {
@@ -178,6 +186,9 @@ case $1 in
         ;;
     install)
         install
+        ;;
+    deploy)
+        deploy
         ;;
     start)
         start
