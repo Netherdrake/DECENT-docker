@@ -35,6 +35,17 @@ Start the container.
 ./run.sh start
 ```
 
+### Accessing the cli_wallet
+After you've built your container, start it.
+```
+./run.sh start
+```
+
+To attach to the running container, and access the wallet, simply run:
+```
+./run.sh wallet
+```
+
 ### Thank you
 Pull Requests with fixes and improvements are welcome.  
 If you found this tool useful, please consider voting for miner `furion`.
