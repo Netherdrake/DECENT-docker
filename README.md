@@ -1,3 +1,10 @@
+### Requirements
+Make sure you have docker installed, and that your user is in the docker group.
+```
+usermod -aG docker $(whoami)
+```
+
+
 ### Usage
 ```
 % ./run.sh
