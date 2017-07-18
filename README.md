@@ -15,11 +15,10 @@ Commands:
     build - only builds DECENT container (from docker file)
     rebuild - builds DECENT container (from docker file), and then restarts it
 
-    replay - starts DECENT container (in replay mode)
-
     start - starts DECENT container
     stop - stops DECENT container
     restart - restarts DECENT container
+    replay - starts DECENT container (in replay mode)
 
     wallet - open cli_wallet in the container
     enter - enter a bash session in the container
