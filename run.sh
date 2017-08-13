@@ -125,7 +125,7 @@ replay() {
     docker rm $DOCKER_NAME
     echo "Running DECENT with replay..."
     docker run $DPORTS -v /dev/shm:/shm -v "$DATADIR":"$DATADIRD" -d \
-        --name $DOCKER_NAME -t decent decentd --replay
+        --name $DOCKER_NAME -t decent decentd --replay-blockchain
     echo "Started."
 }
 

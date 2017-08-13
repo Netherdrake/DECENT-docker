@@ -31,14 +31,14 @@ ENV BOOST_ROOT /boost-1.60.0_prefix
 run cd / && \
     git clone https://github.com/decentfoundation/decent-network decent-src && \
     cd decent-src && \
-    git checkout 1.0.0 && \
+    git checkout 1.0.1 && \
     git submodule update --init --recursive
 
 
 RUN cd / && \
     mkdir decent-bin && \
     cd decent-bin && \
-    cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Debug /decent-src && \
+    cmake -G "Unix Makefiles" -D CMAKE_BUILD_TYPE=Release /decent-src && \
     cmake --build . --target all -- -j -l 3.0 && \
     cmake --build . --target install
 
